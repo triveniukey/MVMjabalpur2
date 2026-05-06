@@ -19895,11 +19895,24 @@ label {
     }
 
     .btn-submit:hover { background: #081c15; }
-
-    @media (max-width: 768px) {
-      .form-row { flex-direction: column; }
+@media (max-width: 988px) {
+    .form-row { 
+        flex-direction: column; 
+        gap: 15px;
     }
-
+    
+    .admission-form {
+        padding: 25px 18px;
+    }
+    
+    .form-header h3 {
+        font-size: 23px;
+    }
+    
+    .radio-group {
+        gap: 15px;
+    }
+}
     .pb-video-container {
     padding: 50px 0;
     background: #f4f7f6;
@@ -20593,4 +20606,15 @@ iframe {
     box-shadow: 0 5px 20px rgba(0,0,0,0.7);
     max-width: 90%;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    .admission-form .row > div {
+        margin-bottom: 15px;
+    }
+    
+    .admission-form input,
+    .admission-form select {
+        font-size: 16px; /* Prevents zoom on mobile */
+    }
 }
