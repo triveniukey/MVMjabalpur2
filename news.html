@@ -945,48 +945,61 @@
   <a href="news.html"><button class="event-btn">News</button></a>
 
 </div>
-                      <div class="detail-text m-b-25">
-                       <section class="volunteer-section">
-		<div class="container">
-			<div class="row" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-				<div class="col-xl-3 m-b-30">
-					<div class="volunteer-card">
-						<a href='volunteer-details.html'>
-							<div class="thumb">
-								<img src="assets/img/event/mvm_jabalpur1_n1_18012021.jpg" alt="thumb-17">
-							</div>
-							
-						</a>
-					
-					</div>
-				</div>
-				<div class="col-xl-3 m-b-30">
-					<div class="volunteer-card">
-						<a href='volunteer-details.html'>
-							<div class="thumb">
-								<img src="assets/img/event/mvm_jabalpur1_n2_18012021.jpg" alt="thumb-18">
-							</div>
-							
-						</a>
-						
-					</div>
-				</div>
-				<div class="col-xl-3 m-b-30">
-					<div class="volunteer-card">
-						<a href='volunteer-details.html'>
-							<div class="thumb">
-								<img src="assets/img/event/mvm_jabalpur1_n3_18012021.jpg" alt="thumb-19">
-							</div>
-							
-						</a>
-						
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	</section>
-                      </div>
+         <div class="detail-text m-b-25">
+    <section class="volunteer-section">
+        <div class="container">
+            <div class="row" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+
+                <!-- Lightbox Enabled Cards -->
+                <div class="col-xl-3 m-b-30">
+                    <div class="volunteer-card">
+                        <a href="#" class="mvm-gallery-item" data-src="assets/img/event/mvm_jabalpur1_n1_18012021.jpg">
+                            <div class="thumb">
+                                <img src="assets/img/event/mvm_jabalpur1_n1_18012021.jpg" alt="">
+                                <div class="overlay"><div class="overlay-text">Event Celebration</div></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 m-b-30">
+                    <div class="volunteer-card">
+                        <a href="#" class="mvm-gallery-item" data-src="assets/img/event/mvm_jabalpur1_n2_18012021.jpg">
+                            <div class="thumb">
+                                <img src="assets/img/event/mvm_jabalpur1_n2_18012021.jpg" alt="">
+                                <div class="overlay"><div class="overlay-text">Event Celebration</div></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 m-b-30">
+                    <div class="volunteer-card">
+                        <a href="#" class="mvm-gallery-item" data-src="assets/img/event/mvm_jabalpur1_n3_18012021.jpg">
+                            <div class="thumb">
+                                <img src="assets/img/event/mvm_jabalpur1_n3_18012021.jpg" alt="">
+                                <div class="overlay"><div class="overlay-text">Event Celebration</div></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+<!-- MVM Lightbox -->
+<!-- MVM Lightbox -->
+<div id="mvm-lightbox" class="mvm-lightbox">
+    <div class="mvm-lightbox-content">
+        <span class="mvm-lightbox-close">&times;</span>
+        <img id="mvm-lightbox-image" src="" alt="">
+        <div id="mvm-lightbox-caption" class="mvm-lightbox-caption"></div>
+        
+        <span class="mvm-lightbox-prev">&#10094;</span>
+        <span class="mvm-lightbox-next">&#10095;</span>
+    </div>
+</div>
                     </div>
                   </div>
                 </div>
@@ -1202,6 +1215,79 @@
 
     <!-- Main Js -->
     <script src="assets/js/script.js"></script>
+    <!-- ==================== LIGHTBOX JAVASCRIPT ==================== -->
+<script>
+// MVM Lightbox Click Function
+const mvmLightbox = document.getElementById('mvm-lightbox');
+const mvmLightboxImg = document.getElementById('mvm-lightbox-image');
+const mvmLightboxCaption = document.getElementById('mvm-lightbox-caption');
+const mvmCloseBtn = document.querySelector('.mvm-lightbox-close');
+
+let currentIndex = 0;
+let galleryImages = [];
+
+function initMvmLightbox() {
+    galleryImages = document.querySelectorAll('.mvm-gallery-item');   // Ye class important hai
+
+    galleryImages.forEach((item, index) => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            currentIndex = index;
+            openMvmLightbox();
+        });
+    });
+}
+
+function openMvmLightbox() {
+    const currentItem = galleryImages[currentIndex];
+    const imgSrc = currentItem.getAttribute('data-src');
+    const captionText = currentItem.querySelector('.overlay-text')?.textContent || "";
+
+    mvmLightboxImg.src = imgSrc;
+    mvmLightboxCaption.textContent = captionText;
+    mvmLightbox.style.display = 'flex';
+    
+    document.addEventListener('keydown', mvmKeyboardControl);
+}
+
+function closeMvmLightbox() {
+    mvmLightbox.style.display = 'none';
+    document.removeEventListener('keydown', mvmKeyboardControl);
+}
+
+function changeMvmImage(direction) {
+    currentIndex = (currentIndex + direction + galleryImages.length) % galleryImages.length;
+    openMvmLightbox();
+}
+
+function mvmKeyboardControl(e) {
+    if (mvmLightbox.style.display === 'flex') {
+        if (e.key === "Escape") closeMvmLightbox();
+        if (e.key === "ArrowLeft") changeMvmImage(-1);
+        if (e.key === "ArrowRight") changeMvmImage(1);
+    }
+}
+
+// Event Listeners
+if (mvmCloseBtn) {
+    mvmCloseBtn.addEventListener('click', closeMvmLightbox);
+}
+
+const prevBtn = document.querySelector('.mvm-lightbox-prev');
+const nextBtn = document.querySelector('.mvm-lightbox-next');
+
+if (prevBtn) prevBtn.addEventListener('click', () => changeMvmImage(-1));
+if (nextBtn) nextBtn.addEventListener('click', () => changeMvmImage(1));
+
+if (mvmLightbox) {
+    mvmLightbox.addEventListener('click', function(e) {
+        if (e.target === mvmLightbox) closeMvmLightbox();
+    });
+}
+
+// Initialize
+window.addEventListener('load', initMvmLightbox);
+</script>
   </body>
 
   <!-- Mirrored from econest-html.netlify.app/econest/contact by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Mar 2026 06:26:13 GMT -->

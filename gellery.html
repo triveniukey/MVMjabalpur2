@@ -44,6 +44,7 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="assets/css/spacing.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    
   </head>
 
   <body>
@@ -1172,16 +1173,17 @@
 </div>
 
 <!-- ==================== IMPROVED LIGHTBOX ==================== -->
-<div id="imageLightbox" class="lightbox">
-  <div class="lightbox-content">
-    <span class="close-btn">&times;</span>
-    <button class="nav-btn prev-btn">❮</button>
-    
-    <img id="lightboxImage" src="" alt="Gallery Image">
-    
-    <button class="nav-btn next-btn">❯</button>
-    <div id="lightboxCaption" class="lightbox-caption"></div>
-  </div>
+<!-- MVM Lightbox -->
+<!-- MVM Lightbox -->
+<div id="mvm-lightbox" class="mvm-lightbox">
+    <div class="mvm-lightbox-content">
+        <span class="mvm-lightbox-close">&times;</span>
+        <img id="mvm-lightbox-image" src="" alt="">
+        <div id="mvm-lightbox-caption" class="mvm-lightbox-caption"></div>
+        
+        <span class="mvm-lightbox-prev">&#10094;</span>
+        <span class="mvm-lightbox-next">&#10095;</span>
+    </div>
 </div>
                     </div>
                   </div>
@@ -1398,66 +1400,66 @@
     
     <!-- Main Js -->
     <script src="assets/js/script.js"></script>
-   <script>
-// Lightbox Script
-document.addEventListener("DOMContentLoaded", function() {
-  const lightbox = document.getElementById("imageLightbox");
-  const lightboxImg = document.getElementById("lightboxImage");
-  const lightboxCaption = document.getElementById("lightboxCaption");
-  const closeBtn = document.querySelector(".close-btn");
-  const prevBtn = document.querySelector(".prev-btn");
-  const nextBtn = document.querySelector(".next-btn");
+  <script>
+// MVM Lightbox Script
+const mvmLightbox = document.getElementById('mvm-lightbox');
+const mvmLightboxImg = document.getElementById('mvm-lightbox-image');
+const mvmLightboxCaption = document.getElementById('mvm-lightbox-caption');
+const mvmCloseBtn = document.querySelector('.mvm-lightbox-close');
+let currentIndex = 0;
+let galleryImages = [];
 
-  let currentIndex = 0;
-  let galleryItems = [];
-
-  function initGallery() {
-    galleryItems = Array.from(document.querySelectorAll(".gallery-item"));
+function initMvmLightbox() {
+    galleryImages = document.querySelectorAll('.gallery-item');
     
-    galleryItems.forEach((item, index) => {
-      item.addEventListener("click", function(e) {
-        e.preventDefault();
-        currentIndex = index;
-        showImage();
-      });
+    galleryImages.forEach((item, index) => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            currentIndex = index;
+            openMvmLightbox();
+        });
     });
-  }
+}
 
-  function showImage() {
-    const item = galleryItems[currentIndex];
-    const imgSrc = item.getAttribute("data-src");
-    const caption = item.querySelector(".overlay-text").innerText;
+function openMvmLightbox() {
+    const currentItem = galleryImages[currentIndex];
+    const imgSrc = currentItem.getAttribute('data-src') || currentItem.querySelector('img').src;
+    const captionText = currentItem.querySelector('.overlay-text')?.textContent || "";
 
-    lightboxImg.src = imgSrc;
-    lightboxCaption.textContent = caption;
-    lightbox.style.display = "flex";
-  }
+    mvmLightboxImg.src = imgSrc;
+    mvmLightboxCaption.textContent = captionText;
+    mvmLightbox.style.display = 'flex';
+    
+    document.addEventListener('keydown', mvmKeyboardControl);
+}
 
-  function nextImage() {
-    currentIndex = (currentIndex + 1) % galleryItems.length;
-    showImage();
-  }
+function closeMvmLightbox() {
+    mvmLightbox.style.display = 'none';
+    document.removeEventListener('keydown', mvmKeyboardControl);
+}
 
-  function prevImage() {
-    currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
-    showImage();
-  }
+function changeMvmImage(direction) {
+    currentIndex = (currentIndex + direction + galleryImages.length) % galleryImages.length;
+    openMvmLightbox();
+}
 
-  closeBtn.addEventListener("click", () => lightbox.style.display = "none");
-  nextBtn.addEventListener("click", nextImage);
-  prevBtn.addEventListener("click", prevImage);
-
-  // Keyboard Support
-  document.addEventListener("keydown", (e) => {
-    if (lightbox.style.display === "flex") {
-      if (e.key === "ArrowRight") nextImage();
-      if (e.key === "ArrowLeft") prevImage();
-      if (e.key === "Escape") lightbox.style.display = "none";
+function mvmKeyboardControl(e) {
+    if (mvmLightbox.style.display === 'flex') {
+        if (e.key === "Escape") closeMvmLightbox();
+        if (e.key === "ArrowLeft") changeMvmImage(-1);
+        if (e.key === "ArrowRight") changeMvmImage(1);
     }
-  });
+}
 
-  initGallery();
+mvmCloseBtn.addEventListener('click', closeMvmLightbox);
+document.querySelector('.mvm-lightbox-prev').addEventListener('click', () => changeMvmImage(-1));
+document.querySelector('.mvm-lightbox-next').addEventListener('click', () => changeMvmImage(1));
+
+mvmLightbox.addEventListener('click', function(e) {
+    if (e.target === mvmLightbox) closeMvmLightbox();
 });
+
+window.addEventListener('load', initMvmLightbox);
 </script>
   </body>
 </html>

@@ -732,7 +732,7 @@ label {
   -webkit-transition: all 0.3s linear 0s;
   -o-transition: all 0.3s linear 0s;
   font-size: 13px;
-  padding-left: 4px;
+  /* padding-left: 4px; */
   transition: all 0.3s linear 0s;
 }
 .e-primary-btn.is-hover-white:before {
@@ -10626,7 +10626,7 @@ label {
 
 .volunteer-card {
   background-color: #f8f7f0;
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 10px;
   position: relative;
 }
@@ -20122,7 +20122,7 @@ iframe {
 }
 iframe {
   width: 100%;
-  height: auto;
+  /* height: auto; */
   max-width: 100%;
 }
 /* Wrapper fix */
@@ -20511,5 +20511,86 @@ iframe {
     }
 
 
+/* === Fixed Caption Below Image - Center Aligned === */
+.mvm-lightbox {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.96);
+    align-items: center;
+    justify-content: center;
+}
 
-    
+.mvm-lightbox-content {
+    position: relative;
+    max-width: 95%;
+    text-align: center;           /* Important */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mvm-lightbox-content img {
+    max-width: 100%;
+    max-height: 76vh;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+    border: 10px solid #ffffff;
+    margin-bottom: 20px;          /* Image aur caption ke beech space */
+}
+
+.mvm-lightbox-close {
+    position: absolute;
+    top: -55px;
+    right: 10px;
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+.mvm-lightbox-close:hover {
+    color: #ffcc00;
+}
+
+.mvm-lightbox-prev,
+.mvm-lightbox-next {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.9);
+    font-size: 60px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 16px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.mvm-lightbox-prev:hover,
+.mvm-lightbox-next:hover {
+    background: #ffcc00;
+    color: #000;
+}
+
+.mvm-lightbox-prev { left: 20px; }
+.mvm-lightbox-next { right: 20px; }
+
+/* Caption - Perfectly Below Image */
+.mvm-lightbox-caption {
+    color: #ffffff;
+    font-size: 23px;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 14px 40px;
+    border-radius: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.7);
+    max-width: 90%;
+    text-align: center;
+}
