@@ -20627,3 +20627,14 @@ iframe {
         font-size: 16px; /* Prevents zoom on mobile */
     }
 }
+
+
+/* Mobile me chairman ke niche ka gap kam karne ke liye */
+@media (max-width: 776px) {
+
+  .shape-wrapped-thumb-1{
+    padding-bottom: 0 !important;
+    margin-bottom: 180px;
+  }
+
+}
