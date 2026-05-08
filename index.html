@@ -2643,7 +2643,9 @@
       </section>
       <!-- latest-blog-section end -->
     </main>
-
+    <button id="backToTop">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
     <!-- footer-section start -->
     <footer
       class="footer-section footer-section-2 p-t-50 p-t-md-60 p-t-xs-80 p-b-50"
@@ -2798,6 +2800,27 @@
     <!-- Main Js -->
     <script src="assets/js/script.js"></script>
     <script>
+        const backToTop = document.getElementById("backToTop");
+
+  // Scroll hone par button show/hide
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      backToTop.style.display = "block";
+    } else {
+      backToTop.style.display = "none";
+    }
+  });
+
+  // Top par smooth scroll
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+
+
+
 const playBtn = document.getElementById('play-btn');
     const closeBtn = document.getElementById('close-btn');
     const youtubeFrame = document.getElementById('youtube-frame');
