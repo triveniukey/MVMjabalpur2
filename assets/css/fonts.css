@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Albert Sans';
+  src: url('./fonts/Albert_Sans/static/AlbertSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./fonts/DM_Sans/static/DMSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('./fonts/Outfit/static/Outfit-Regular.ttf') format('truetype');
+}
