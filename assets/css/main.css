@@ -964,7 +964,7 @@ label {
 }
 @media (min-width: 1200px) and (max-width: 1399px) {
   .header-middle {
-    padding: 20px 12px;
+    padding: 13px 12px;
   }
 }
 .header-middle .header-info-wrap {
@@ -1134,12 +1134,32 @@ label {
     font-size: 16px;
   }
 }
+/* ==================== 1200px - 1399px SPECIFIC FIX ==================== */
+
 @media (min-width: 1200px) and (max-width: 1399px) {
+    
+    .main-menu-2 ul {
+        gap: 5px !important;           /* Items ke beech space */
+    }
+    
+    
+    .main-menu-2 ul li a {
+        padding: 8px 16px !important;   /* Best balanced padding */
+        font-size: 16px !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Dropdown arrow ke liye extra space */
+    .main-menu-2 ul li.has-dropdown > a {
+        padding-right: 0px !important;
+    }
+}
+/* @media (min-width: 1200px) and (max-width: 1399px) {
   .main-menu-2 ul li a {
     padding: 4px 2px;
     font-size: 16px;
   }
-}
+} */
 /* @media (min-width: 700px) {
     .has-dropdown  {
       margin-left: 2px;
@@ -3647,6 +3667,7 @@ label {
   width: auto;
   padding: 10px 16px;
 }
+
 @media (min-width: 1200px) and (max-width: 1399px) {
   .hero-slider-active-1 .hero-slider-pagination-1 {
     right: 30px;
@@ -20706,3 +20727,60 @@ iframe {
   background: #0f3b22;
   transform: translateY(-3px);
 }
+
+/* ==================== NEW CSS FOR IMAGE BACKGROUND ==================== */
+
+.hero-side {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.hero-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: -2;
+}
+
+/* Dark Overlay */
+.hero-side::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background: rgba(0, 0, 0, 0.35); */
+  z-index: -1;
+}
+
+/* Content Layer */
+.hero-content-1,
+.group-shape-1 {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero Slider Main */
+.hero-slider-active-1 {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Responsive Height */
+@media (max-width: 767px) {
+  .hero-side {
+    min-height: 100vh;
+  }
+}
+
+
